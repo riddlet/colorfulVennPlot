@@ -1,0 +1,7 @@
+9b89f193cf6f93dbbcfe044d74e7722a *DESCRIPTION
+ce00bd8cb4f85cb693764f3f21e2b216 *NAMESPACE
+140be36d1826d2588fb562eff5efa9e6 *R/createVennData.R
+8ae8ca7aa4855db935d7bb97f4b11c8a *R/plotVenn.R
+877424146e914695ac3eef298590e053 *man/colorfulVennPlot-package.Rd
+c76f9cc61fbe72427fca41308991f813 *man/createVennData.Rd
+6d4f885fadcdfac8bb1355ec696f1136 *man/plotVenn.Rd

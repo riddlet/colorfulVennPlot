@@ -1,21 +1,22 @@
 plotVenn2d  <-
 function (x, labels = c('A', 'B'),
   Colors = c("red", "yellow", "green"),
-  Title = NULL, shrink = 1, rot=0, radius= c(1,1))
+  Title = NULL, shrink = 1, rot=0, radius= c(1,1), resizePlot = 1)
 { # plot a 2-dimensional Venn diagram
 
   suppressPackageStartupMessages(library(grid))
 
   ### Specify necessary functions
 
+    calcdist <- function(x, y) sqrt((x[1] - y[1])^2 + (x[2] - y[2])^2)
+    calcangle <- function(x, y) atan((y[2] - x[2])/(y[1] - x[1]))
+
     getArcEnds <- function(center1, center2, radius) {
-        calcdist <- function(x, y) sqrt((x[1] - y[1])^2 + (x[2] - y[2])^2)
-        calcangle <- function(x, y) atan((y[2] - x[2])/(y[1] - x[1]))
         centerDistance <- calcdist(center1, center2)
         connector <- ifelse(center1[1] > center2[1], pi, 0) +
             calcangle(center1, center2)
-        halfChord <- sqrt(radius[1]^2 - ((radius[2]^2 - radius[1]^2 - centerDistance^2)/(2 * centerDistance)) ^2)
-        intersection <- asin(halfChord/radius[1])
+        distanceOne <- (radius[1]^2 - radius[2]^2 + centerDistance^2)/(2 * centerDistance)
+        intersection <- acos(distanceOne/radius[1])
         return(c(begin = connector - intersection, end = connector + intersection))
     }
 
@@ -78,16 +79,25 @@ function (x, labels = c('A', 'B'),
 
     if (is.null(rot)) rot <- 90
     if (is.null(radius)) radius <- c(1,1)
-    radius <- radius * .25
+    radius <- radius * .25 * resizePlot
 
-    values <- rep(0, length(x))
     if (is.null(names(x))) names(x) <- c("01", "10", "11")[seq(length(x))]
-    valptr <- unlist(lapply(names(x), fromBase2_3))
-    for (i in seq_along(x)) if (valptr[i] %in% 1:3)
-        values[valptr[i]] <- values[valptr[i]] + x[i]
+	valptr <- unlist(lapply(names(x), fromBase2_3))
+	
+	if (class(x) != "character") {
+		values <- rep(0, length(x))
+		for (i in seq_along(x)) 
+			if (valptr[i] %in% 1:3)
+				values[valptr[i]] <- values[valptr[i]] + x[i]
+	} else {
+		values <- x
+		for (i in seq_along(x)) 
+			if (valptr[i] %in% 1:3)
+				values[valptr[i]] <- x[i]		
+	}
     nfacets <- 300
 
-    r0 <- 0.18
+    r0 <- 0.18 * resizePlot
     dy <- r0 * sin(rot * pi / 180)
     dx <- r0 * cos(rot * pi / 180)
     laby0 <- ifelse(dy > 0, 1, -1) * (0.1 + radius)
@@ -100,22 +110,44 @@ function (x, labels = c('A', 'B'),
     if (!is.null(Title))
       grid.text(Title, gp = gpar(fontsize=25*shrink, fontface="bold"),x = 0.5, y = 0.97)
     
-    grid.polygon(x = centers[1,1] + radius[1] * cos(angle), y = centers[1,2] + radius[1] * sin(angle),
-        gp = gpar(fill = Colors[1]))
+	centerDistance <- calcdist(centers[1,], centers[2,])
 
-    grid.polygon(x = centers[2,1] + radius[2] * cos(angle), y = centers[2,2] + radius[2] * sin(angle),
-        gp = gpar(fill = Colors[2]))
+	if (radius[1] > centerDistance + radius[2]) {
+	
+	    grid.polygon(x = centers[1,1] + radius[1] * cos(angle), y = centers[1,2] + radius[1] * sin(angle),
+            gp = gpar(fill = Colors[1]))
 
-    twoWayOverlap(centers[1,], centers[2,], radius, Colors[3])
+        grid.polygon(x = centers[2,1] + radius[2] * cos(angle), y = centers[2,2] + radius[2] * sin(angle),
+            gp = gpar(fill = Colors[3]))
+	
+	} else if (radius[2] > centerDistance + radius[1]) {
 
+        grid.polygon(x = centers[2,1] + radius[2] * cos(angle), y = centers[2,2] + radius[2] * sin(angle),
+            gp = gpar(fill = Colors[2]))
+	
+	    grid.polygon(x = centers[1,1] + radius[1] * cos(angle), y = centers[1,2] + radius[1] * sin(angle),
+            gp = gpar(fill = Colors[3]))
+	
+	} else {
+	
+	    grid.polygon(x = centers[1,1] + radius[1] * cos(angle), y = centers[1,2] + radius[1] * sin(angle),
+            gp = gpar(fill = Colors[1]))
+
+        grid.polygon(x = centers[2,1] + radius[2] * cos(angle), y = centers[2,2] + radius[2] * sin(angle),
+            gp = gpar(fill = Colors[2]))
+
+        if (radius[1] + radius[2] > centerDistance) twoWayOverlap(centers[1,], centers[2,], radius, Colors[3])
+	
+	}
+	
     grid.text(labels[1], centers[1,1], centers[1,2] + laby0[1],
         gp = gpar(fontsize = 18 * shrink, fontface = "bold"))
     grid.text(labels[2], centers[2,1], centers[2,2] - laby0[2],
         gp = gpar(fontsize = 18 * shrink, fontface = "bold"))
 
-    grid.text(values[3], intersectionCenter(centers[,1]), intersectionCenter(centers[,2]))
+    if (radius[1] + radius[2] > centerDistance)
+		grid.text(values[3], intersectionCenter(centers[,1]), intersectionCenter(centers[,2]))
     grid.text(values[1], centers[1,1], centers[1,2])
     grid.text(values[2], centers[2,1], centers[2,2])
 
 }
-

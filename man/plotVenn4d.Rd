@@ -5,7 +5,7 @@
 }
 \usage{
 plotVenn4d(x, labels = c('A','B','C','D'),
-  Colors = c("red", "yellow", "green",'pink','darkgreen','blue','lightblue','tan', 
+  Colors = c('red', 'yellow', 'green', 'pink','darkgreen','blue','lightblue','tan', 
   'yellowgreen','orange','purple','white','grey','plum','brown'),
   Title = NULL, shrink = 1, rot=45)
 }
@@ -29,19 +29,12 @@ By definition, value '0000' lays outside the plotted diagram. Therefore, it will
 \examples{
 
 plot.new()
-Colors <- c("red", "yellow", "green",'pink','darkgreen','blue','lightblue','tan', 
+Colors <- c('red', 'yellow', 'green', 'pink', 'darkgreen','blue','lightblue','tan', 
   'yellowgreen','orange','purple','white','grey','plum','brown')
 regions <- seq(15)
 names(regions) <- c('1000', '0100', '1100', '0010', '1010', '0110', '1110', '0001', 
   '1001', '0101', '1101', '0011', '1011', '0111', '1111')
 plotVenn4d(regions, Colors=Colors, Title = '4-dimensional')
-
-plot.new()
-for (i in 1:30) {
-	names(regions) <- c(tail(names(regions), -1), names(regions)[1])
-	plotVenn4d(regions, Colors=Colors, Title = '4-dimensional')
-	for (j in 1:100000) y <- exp(runif(20))
-}
 
 }
 \keyword{ hplot }

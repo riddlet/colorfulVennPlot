@@ -1,6 +1,6 @@
 createVennData <-
 function(x, Cols = NULL, Splits = c(0, 0, 0), Labels = NULL, type = c('count','percent'), ToSkip = '000')
-{ ### Generates data to feed into plotVenn()
+{ ### Generates data to feed into plotVenn3d() only.
 
   if (ncol(x) < 3) stop("Input data 'x' must have at least 3 columns.")
 

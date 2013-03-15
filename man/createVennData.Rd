@@ -1,10 +1,11 @@
 \name{createVennData}
 \alias{createVennData}
-\title{Generates data for plotVenn()}
-\description{Given data with at least 3 columns, it will generate a vector of 7 numerical values, which describe grouping of the data across 3 specified columns. The output should be used for plotVenn() function.
+\title{Generates data for plotVenn3d()}
+\description{Given data with 3 columns, it will generate a vector of 7 numerical values, which describe grouping of the data across 3 specified columns. The output should be used for plotVenn3d() function.
 }
 \usage{
-createVennData(x, Cols = NULL, Splits = c(0, 0, 0), Labels = NULL, type = c("count", "percent"), ToSkip = "000")
+createVennData(x, Cols = NULL, Splits = c(0, 0, 0), Labels = NULL, 
+  type = c("count", "percent"), ToSkip = "000")
 }
 \arguments{
   \item{x}{ a table of numerical values of at least 3 columns. }
@@ -58,6 +59,7 @@ The output will be then a vector of length 7 rather than 8, missing the 'ToSkip'
   # For more info: ?MASS::survey
   
   # Grouping students by Pulse, Height and Age
+  plot.new()
   vennData <- createVennData(survey,
     Cols = c("Pulse","Height","Age"),
     Splits = c(75, 170, 20),   ## Split Pulse at 75, split Height at 170, split Age at 20
@@ -65,6 +67,10 @@ The output will be then a vector of length 7 rather than 8, missing the 'ToSkip'
     type = c("percent"))   ## generate data as percents
 
   # Plot 
+  plot.new()
+  plotVenn3d(vennData$x, vennData$labels)
+  # OR:
+  plot.new()
   plotVenn(vennData$x, vennData$labels)
   
 }

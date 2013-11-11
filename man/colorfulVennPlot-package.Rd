@@ -8,8 +8,8 @@
 \tabular{ll}{
 Package: \tab plotVenn\cr
 Type: \tab Package\cr
-Version: \tab 2.1\cr
-Date: \tab 2013-03-15\cr
+Version: \tab 2.4\cr
+Date: \tab 2013-11-11\cr
 License: \tab GPL-2\cr
 }
 The package is designed to be able to plot Venn diagrams for 2-d, 3-d and 4-d data. The uniqueness of it is in being able to specify custom colors for each part of the plot - including the crossovers. 

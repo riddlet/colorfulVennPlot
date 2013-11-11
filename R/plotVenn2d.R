@@ -1,10 +1,10 @@
 plotVenn2d  <-
 function (x, labels = c('A', 'B'),
   Colors = c("red", "yellow", "green"),
-  Title = NULL, shrink = 1, rot=0, radius= c(1,1), resizePlot = 1)
+  Title = NULL, shrink = 1, rot=0, radius= c(1,1), resizePlot = 1, reverseLabelOrdering=TRUE)
 { # plot a 2-dimensional Venn diagram
 
-  suppressPackageStartupMessages(library(grid))
+#  suppressPackageStartupMessages(library(grid))
 
   ### Specify necessary functions
 
@@ -82,6 +82,10 @@ function (x, labels = c('A', 'B'),
     radius <- radius * .25 * resizePlot
 
     if (is.null(names(x))) names(x) <- c("01", "10", "11")[seq(length(x))]
+	xorder <- order(names(x))   # 4 lines of coded added 11/11/2013
+	x <- x[xorder]
+	Colors <- Colors[xorder]
+	if (!reverseLabelOrdering) labels <- rev(labels)
 	valptr <- unlist(lapply(names(x), fromBase2_3))
 	
 	if (class(x) != "character") {

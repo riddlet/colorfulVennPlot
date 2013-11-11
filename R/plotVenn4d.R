@@ -4,7 +4,7 @@ function(x, labels = c('A','B','C','D'),
   Title = NULL, shrink = 1, rot=45)
 { # plot a 4-dimensional Venn diagram
 
-  suppressPackageStartupMessages(library(grid))
+#  suppressPackageStartupMessages(library(grid))
 
   ### Specify necessary functions
 

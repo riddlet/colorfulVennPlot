@@ -6,7 +6,8 @@
 \usage{
 plotVenn2d(x, labels = c('A', 'B'),
   Colors = c("red", "yellow", "green"),
-  Title = NULL, shrink = 1, rot=0, radius= c(1,1), resizePlot = 1)
+  Title = NULL, shrink = 1, rot=0, radius= c(1,1), resizePlot = 1, 
+  reverseLabelOrdering=TRUE)
 }
 \arguments{
   \item{x}{ a numeric vector of length 3, where first value corresponds to only group 1, second is only group 2, and third is a crossover of the two groups. Can also be a character vector of length 3.}
@@ -17,11 +18,12 @@ plotVenn2d(x, labels = c('A', 'B'),
   \item{rot}{ a numeric value, specifying the number of degrees to rotate the graph. }
   \item{radius}{ a 2-item numeric vector containing the relative sizes of the two circles }
   \item{resizePlot}{ a numeric value indicating the amount to increase or decrease the size of the plot }
+  \item{reverseLabelOrdering}{ boolean value indicating whether labels are in the normal or reverse ordering. default=TRUE for backward compatability with the original version. }
 }
 \details{
 NOTICE: This only works for 2-dimensional data.
 
-By definition, value '00' lies outside the plotted diagram. Therefore, it will not be plotted. Because of that, if plotting 'percent' data, all values will not add up to 100 percent, missing 000's allocation.
+By definition, value '00' lies outside the plotted diagram. Therefore, it will not be plotted. Because of that, if plotting 'percent' data, all values will not add up to 100 percent, missing 00's allocation.
 }
 \author{Elliot Noma, Aliona Manvae
 }

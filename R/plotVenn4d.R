@@ -1,7 +1,7 @@
 plotVenn4d <-
 function(x, labels = c('A','B','C','D'),
   Colors = c("red", "yellow", "green",'pink','darkgreen','blue','lightblue','tan', 'yellowgreen','orange','purple','white','grey','plum','brown'),
-  Title = NULL, shrink = 1, rot=45)
+  Title = NULL, shrink = 1, rot=45, printvals=TRUE)
 { # plot a 4-dimensional Venn diagram
 
 #  suppressPackageStartupMessages(library(grid))
@@ -17,7 +17,7 @@ function(x, labels = c('A','B','C','D'),
         out <- atan2(y, x)
         if (!directed)
             out <- out%%pi
-        if (deg)
+        if (deg)se
             out <- out * 180/pi
         out
     }
@@ -187,11 +187,20 @@ function(x, labels = c('A','B','C','D'),
     }
 
     # Plot crossovers and fill-in values for each part
-    for (ii in seq(nrow(midpoints)))
-    { pars <- region.polygon(ii, regions[which(regions$TF %in% midpoints$TF[ii]),1:4],
-        midpoints[which(midpoints$TF %in% midpoints$TF[ii]),], col=Colors[ii], rot, rng, doColor = !(ii %in% c(1,2,4,8)))
-      grid.text(x[ii], x = mean(pars[,1]), y = mean(pars[,2]))
+    if(isTRUE(printvals)){
+      for (ii in seq(nrow(midpoints)))
+      { pars <- region.polygon(ii, regions[which(regions$TF %in% midpoints$TF[ii]),1:4],
+                               midpoints[which(midpoints$TF %in% midpoints$TF[ii]),], col=Colors[ii], rot, rng, doColor = !(ii %in% c(1,2,4,8)))
+        grid.text(x[ii], x = mean(pars[,1]), y = mean(pars[,2]))
+      }
+      
+    }else{
+      for (ii in seq(nrow(midpoints)))
+      { pars <- region.polygon(ii, regions[which(regions$TF %in% midpoints$TF[ii]),1:4],
+                               midpoints[which(midpoints$TF %in% midpoints$TF[ii]),], col=Colors[ii], rot, rng, doColor = !(ii %in% c(1,2,4,8)))
+      }
     }
+
 
     # Plot labels
     for (i in seq_along(ellipses))

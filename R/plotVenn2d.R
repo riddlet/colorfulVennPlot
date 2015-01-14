@@ -1,7 +1,7 @@
 plotVenn2d  <-
 function (x, labels = c('A', 'B'),
   Colors = c("red", "yellow", "green"),
-  Title = NULL, shrink = 1, rot=0, radius= c(1,1), resizePlot = 1, reverseLabelOrdering=TRUE)
+  Title = NULL, shrink = 1, rot=0, radius= c(1,1), resizePlot = 1, reverseLabelOrdering=TRUE, printvals=TRUE)
 { # plot a 2-dimensional Venn diagram
 
 #  suppressPackageStartupMessages(library(grid))
@@ -144,14 +144,18 @@ function (x, labels = c('A', 'B'),
 	
 	}
 	
+
     grid.text(labels[1], centers[1,1], centers[1,2] + laby0[1],
         gp = gpar(fontsize = 18 * shrink, fontface = "bold"))
     grid.text(labels[2], centers[2,1], centers[2,2] - laby0[2],
         gp = gpar(fontsize = 18 * shrink, fontface = "bold"))
-
+  
+  if(isTRUE(printvals)){
+    
     if (radius[1] + radius[2] > centerDistance)
 		grid.text(values[3], intersectionCenter(centers[,1]), intersectionCenter(centers[,2]))
     grid.text(values[1], centers[1,1], centers[1,2])
     grid.text(values[2], centers[2,1], centers[2,2])
+  }
 
 }

@@ -6,7 +6,7 @@
 \usage{
 plotVenn3d(x, labels = c('A','B','C'), 
   Colors = c("red","yellow","orange","lightblue","purple","green","grey"), 
-  Title = NULL, shrink=1, rot=0)
+  Title = NULL, shrink=1, rot=0, printvals=TRUE)
 }
 \arguments{
   \item{x}{ a numeric vector of length 7, with names c("001","010","011","100","101","110","111") in suitable order.}
@@ -15,6 +15,7 @@ plotVenn3d(x, labels = c('A','B','C'),
   \item{Colors}{ a vector of color names for the backgrounds of each part of the diagram. }
   \item{Title}{ a string containing the graph title. }
   \item{rot}{ a numeric value for the number of degrees to rotate the graph. }
+  \item{printvals}{ boolean value indicating whether to print the values of the groups. default=TRUE }
 }
 \details{
 NOTICE: This only works for 3-dimensional data.

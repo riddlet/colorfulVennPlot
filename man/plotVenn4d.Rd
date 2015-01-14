@@ -7,7 +7,7 @@
 plotVenn4d(x, labels = c('A','B','C','D'),
   Colors = c('red', 'yellow', 'green', 'pink','darkgreen','blue','lightblue','tan', 
   'yellowgreen','orange','purple','white','grey','plum','brown'),
-  Title = NULL, shrink = 1, rot=45)
+  Title = NULL, shrink = 1, rot=45, printvals=TRUE)
 }
 \arguments{
   \item{x}{ a numeric vector of length 15, with names c('1000', '0100', '1100', '0010', '1010', '0110', '1110', 
@@ -17,6 +17,7 @@ plotVenn4d(x, labels = c('A','B','C','D'),
   \item{Colors}{ a vector of color names for the backgrounds of each part of the diagram. }
   \item{Title}{ a string containing the graph title. }
   \item{rot}{ a numeric value for the number of degrees to rotate the graph. }
+  \item{printvals}{ boolean value indicating whether to print the values of the groups. default=TRUE }
 }
 \details{
 NOTICE: This only works for 4-dimensional data.

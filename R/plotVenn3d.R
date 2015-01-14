@@ -1,7 +1,7 @@
 plotVenn3d <-
 function(x, labels = c('A','B','C'),
   Colors = c("red","yellow","orange","lightblue","purple","green","grey"),
-  Title = NULL, shrink=1, rot=0)
+  Title = NULL, shrink=1, rot=0, printvals=TRUE)
 { # plot a 3-dimensional Venn diagram
 
 #  suppressPackageStartupMessages(library(grid))
@@ -156,7 +156,11 @@ function(x, labels = c('A','B','C'),
     grid.polygon(x=points$x, y=points$y, gp=gpar(fill=Colors[7]))
 
     for (i in 1:3) grid.text(labels[i], labelLocations[i,1], labelLocations[i,2], gp = gpar(fontsize=18*shrink, fontface="bold"))
-    for (i in 1:7) grid.text(values[i], centerLocations[i,1], centerLocations[i,2])
+    
+    if(isTRUE(printvals)){
+      for (i in 1:7) grid.text(values[i], centerLocations[i, 1], 
+                             centerLocations[i, 2])
+    }
 
 }
 

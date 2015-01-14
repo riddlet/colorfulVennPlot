@@ -7,7 +7,7 @@
 plotVenn2d(x, labels = c('A', 'B'),
   Colors = c("red", "yellow", "green"),
   Title = NULL, shrink = 1, rot=0, radius= c(1,1), resizePlot = 1, 
-  reverseLabelOrdering=TRUE)
+  reverseLabelOrdering=TRUE, printvals=TRUE)
 }
 \arguments{
   \item{x}{ a numeric vector of length 3, where first value corresponds to only group 1, second is only group 2, and third is a crossover of the two groups. Can also be a character vector of length 3.}
@@ -19,6 +19,7 @@ plotVenn2d(x, labels = c('A', 'B'),
   \item{radius}{ a 2-item numeric vector containing the relative sizes of the two circles }
   \item{resizePlot}{ a numeric value indicating the amount to increase or decrease the size of the plot }
   \item{reverseLabelOrdering}{ boolean value indicating whether labels are in the normal or reverse ordering. default=TRUE for backward compatability with the original version. }
+  \item{printvals}{ boolean value indicating whether to print the values of the groups. default=TRUE }
 }
 \details{
 NOTICE: This only works for 2-dimensional data.
